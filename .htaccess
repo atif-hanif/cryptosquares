@@ -1,4 +1,0 @@
-<IfModule mod_headers.c>
-    Header set Access-Control-Allow-Origin "https://womanonlinestore.com/cryptosquares/"
-    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
-</IfModule>
