@@ -36,7 +36,7 @@ d3.csv("population.csv").then(data => {
 	});
 
 	// Sort the data by population in descending order and get the top 20 countries
-	const sortedData = data.sort((a, b) => b.Population - a.Population).slice(0, 20);
+	const sortedData = data.sort((a, b) => b.Population - a.Population).slice(0, 1000);
 
 	// Create the color scale
 	const colorScale = d3.scaleOrdinal()
