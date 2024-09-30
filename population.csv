@@ -1,16 +1,21 @@
-﻿Country,Population
-BTC,63448.00000000
-Ethereum,2597.00000000
-Tether,0.99990000
-BNB,570.62000000
-Solana,154.95000000
-USDC,1.00000000
-XRP,0.61940000
-Dogecoin,0.11780000
-Toncoin,5.83000000
-TRON,0.15620000
-Cardano,0.38150000
-Avalanche,28.23000000
-Shiba Inu,0.00001783
-Chainlink,11.98000000
-Polkadot,4.55100000
+﻿Currency,Price
+BTC,-3.40%
+Ethereum,-2.20%
+Tether,-0.04%
+BNB,-4.30%
+Solana,-1.50%
+USDC,0.04%
+XRP,-5.00%
+Dogecoin,-7.30%
+Toncoin,0.00%
+TRON,-0.38%
+Cardano,-0.75%
+Avalanche,-5.40%
+Shiba Inu,-3.00%
+Chainlink,-8.60%
+Polkadot,-5.30%
+Bitcoin Cash,-5.20%
+NEAR Protocol,-2.50%
+UNUS SED LEO,-3.20%
+Dai,0.62%
+Litecoin,0.01%
