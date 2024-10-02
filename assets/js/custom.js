@@ -29,18 +29,18 @@ const padding = 50;
 // var baseUrl = protocol + "//" + host + "/"
 
 
-d3.csv("population.csv").then(data => {
-	// Convert population strings to numbers
+d3.csv("currencies.csv").then(data => {
+	// Convert Currency strings to numbers
 	data.forEach(d => {
-		d.Population = +d.Population;
+		d.Currency = +d.Currency;
 	});
 
-	// Sort the data by population in descending order and get the top 20 countries
-	const sortedData = data.sort((a, b) => b.Population - a.Population).slice(0, 100);
+	// Sort the data by Currency in descending order and get the top 20 countries
+	const sortedData = data.sort((a, b) => b.Currency - a.Currency).slice(0, 100);
 
 	// Create the color scale
 	const colorScale = d3.scaleOrdinal()
-		.domain(sortedData.map(d => d.Country))
+		.domain(sortedData.map(d => d.Rates))
 		.range(d3.schemeCategory10);
 
 	// Create the pack layout
@@ -50,7 +50,7 @@ d3.csv("population.csv").then(data => {
 
 	// Create the hierarchy from the data
 	const hierarchy = d3.hierarchy({children: sortedData})
-		.sum(d => d.Population);
+		.sum(d => d.Currency);
 
 	// Compute the pack layout
 	const root = pack(hierarchy);
@@ -71,20 +71,20 @@ d3.csv("population.csv").then(data => {
 	// Add the circles to the bubbles
 	bubbles.append("circle")
 		.attr("r", d => d.r)
-		.attr("fill", d => colorScale(d.data.Country));
+		.attr("fill", d => colorScale(d.data.Rates));
 
-	// Add the country name and population text to the bubbles
+	// Add the rates name and Currency text to the bubbles
 	bubbles.append("text")
 		.attr("dy", "-0.4em")
 		.style("text-anchor", "middle")
 		.append("tspan")
-		.attr("class", "country")
-		.text(d => d.data.Country)
+		.attr("class", "rates")
+		.text(d => d.data.Rates)
 		.append("tspan")
-		.attr("class", "population")
+		.attr("class", "Currency")
 		.attr("x", 0)
 		.attr("dy", "1.2em")
-		.text(d => d.data.Population.toLocaleString());
+		.text(d => d.data.Currency.toLocaleString());
 
 	// Set the text color to black
 	d3.selectAll("text").style("fill", "black");
