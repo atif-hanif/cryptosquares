@@ -29,14 +29,14 @@ const padding = 50;
 // var baseUrl = protocol + "//" + host + "/"
 
 
-d3.csv("currency.json").then(data => {
+d3.csv("currencies.csv").then(data => {
 	// Convert population strings to numbers
 	data.forEach(d => {
 		d.Population = +d.Population;
 	});
 
 	// Sort the data by population in descending order and get the top 20 countries
-	const sortedData = data.sort((a, b) => b.Population - a.Population).slice(0, 1000);
+	const sortedData = data.sort((a, b) => b.Population - a.Population).slice(0, 100);
 
 	// Create the color scale
 	const colorScale = d3.scaleOrdinal()
