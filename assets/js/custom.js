@@ -32,15 +32,15 @@ const padding = 50;
 d3.csv("currencies.csv").then(data => {
 	// Convert Currency strings to numbers
 	data.forEach(d => {
-		d.Currency = +d.Currency;
+		d.Rates = +d.Rates;
 	});
 
 	// Sort the data by Currency in descending order and get the top 20 countries
-	const sortedData = data.sort((a, b) => b.Currency - a.Currency).slice(0, 100);
+	const sortedData = data.sort((a, b) => b.Rates - a.Rates).slice(0, 100);
 
 	// Create the color scale
 	const colorScale = d3.scaleOrdinal()
-		.domain(sortedData.map(d => d.Rates))
+		.domain(sortedData.map(d => d.Currency))
 		.range(d3.schemeCategory10);
 
 	// Create the pack layout
@@ -50,7 +50,7 @@ d3.csv("currencies.csv").then(data => {
 
 	// Create the hierarchy from the data
 	const hierarchy = d3.hierarchy({children: sortedData})
-		.sum(d => d.Currency);
+		.sum(d => d.Rates);
 
 	// Compute the pack layout
 	const root = pack(hierarchy);
@@ -71,20 +71,20 @@ d3.csv("currencies.csv").then(data => {
 	// Add the circles to the bubbles
 	bubbles.append("circle")
 		.attr("r", d => d.r)
-		.attr("fill", d => colorScale(d.data.Rates));
+		.attr("fill", d => colorScale(d.data.Currency));
 
 	// Add the rates name and Currency text to the bubbles
 	bubbles.append("text")
 		.attr("dy", "-0.4em")
 		.style("text-anchor", "middle")
 		.append("tspan")
-		.attr("class", "rates")
-		.text(d => d.data.Rates)
+		.attr("class", "currency")
+		.text(d => d.data.Currency)
 		.append("tspan")
-		.attr("class", "Currency")
+		.attr("class", "rates")
 		.attr("x", 0)
 		.attr("dy", "1.2em")
-		.text(d => d.data.Currency.toLocaleString());
+		.text(d => d.data.Rates.toLocaleString());
 
 	// Set the text color to black
 	d3.selectAll("text").style("fill", "black");
