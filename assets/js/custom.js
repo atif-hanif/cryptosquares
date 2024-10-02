@@ -29,7 +29,7 @@ const padding = 50;
 // var baseUrl = protocol + "//" + host + "/"
 
 
-d3.csv("currencies.csv").then(data => {
+d3.csv("https://atif-hanif.github.io/cryptosquares/currencies.csv").then(data => {
 	// Convert population strings to numbers
 	data.forEach(d => {
 		d.Population = +d.Population;
