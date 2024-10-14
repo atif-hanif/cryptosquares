@@ -19,7 +19,7 @@ $(document).ready(function() {
 const width = 1100;
 const height = 600;
 const padding = 50;
-const squarePadding = 20;
+const squarePadding = 50;
 
 d3.csv("currencies.csv").then(data => {
 
