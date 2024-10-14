@@ -16,10 +16,10 @@ $(document).ready(function() {
     });
 });
 
-const width = 1100;
+const width = 1200;
 const height = 600;
 const padding = 50;
-const squarePadding = 30;
+const squarePadding = 40;
 
 d3.csv("currencies.csv").then(data => {
 
@@ -56,7 +56,7 @@ d3.csv("currencies.csv").then(data => {
 
 
 	// Increase the size of squares by multiplying d.r by a factor (e.g., 1.5 for 50% larger)
-	const sizeFactor = 1.5;  // Change this factor to control the size increase
+	const sizeFactor = 2.0;  // Change this factor to control the size increase
 
 	// Append circles and animate them from random positions to final positions
 	squares.append("rect")
