@@ -16,7 +16,7 @@ $(document).ready(function() {
     });
 });
 
-const width = 500;
+const width = 1000;
 const height = 600;
 const padding = 50;
 const squarePadding = 40;
