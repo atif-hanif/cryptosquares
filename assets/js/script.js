@@ -53,12 +53,16 @@ d3.csv("currencies.csv").then(data => {
 		.attr("class", "square")
 		.attr("transform", d => `translate(${Math.random() * (width - padding * 2) + padding}, ${Math.random() * (height - padding * 2) + padding})`);  // Start from random positions within bounds
 
+
+	// Increase the size of squares by multiplying d.r by a factor (e.g., 1.5 for 50% larger)
+	const sizeFactor = 1.5;  // Change this factor to control the size increase
+
 	// Append circles and animate them from random positions to final positions
 	squares.append("rect")
-		.attr("width", d => d.r * 2)  // Set width based on the radius
-		.attr("height", d => d.r * 2)  // Set height based on the radius
-		.attr("x", d => -d.r)  // Center the square horizontally
-		.attr("y", d => -d.r)  // Center the square vertically
+		.attr("width", d => d.r * 2 * sizeFactor)  // Set width based on the radius
+		.attr("height", d => d.r * 2 * sizeFactor)  // Set height based on the radius
+		.attr("x", d => -d.r * sizeFactor)  // Center the square horizontally
+		.attr("y", d => -d.r * sizeFactor)  // Center the square vertically
 		.attr("fill", d => colorScale(d.data.Currency));
 
 	// Animate the movement of circles to their final positions
