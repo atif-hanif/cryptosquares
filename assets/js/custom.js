@@ -35,7 +35,7 @@ d3.csv("currencies.csv").then(data => {
 
 	const pack = d3.pack()
 		.size([width - padding * 2, height - padding * 2])  // Adjust to keep inside bounds
-		.padding(5);
+		.padding(50);
 
 	const hierarchy = d3.hierarchy({children: sortedData})
 		.sum(d => d.Rates);
