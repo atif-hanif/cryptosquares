@@ -17,7 +17,7 @@ $(document).ready(function() {
     });
 });
 
-const width = 700;
+const width = 1200;
 const height = 600;
 const padding = 50;
 
@@ -54,9 +54,13 @@ d3.csv("currencies.csv").then(data => {
 		.attr("class", "bubble")
 		.attr("transform", d => `translate(${Math.random() * (width - padding * 2) + padding}, ${Math.random() * (height - padding * 2) + padding})`);  // Start from random positions within bounds
 
+	
+	// Increase the size of squares by multiplying d.r by a factor (e.g., 1.5 for 50% larger)
+	const sizeFactor = 2.0;  // Change this factor to control the size increase
+	
 	// Append circles and animate them from random positions to final positions
 	bubbles.append("circle")
-		.attr("r", d => d.r)  // Set the correct radius right away
+		.attr("r", d => d.r * 2 * sizeFactor)  // Set the correct radius right away
 		.attr("fill", d => colorScale(d.data.Currency));
 
 	// Animate the movement of circles to their final positions
