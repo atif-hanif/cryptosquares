@@ -83,64 +83,158 @@ $(document).ready(function() {
 
 // });
 
-const svg = d3.select("svg");
-const width = +svg.attr("width");
-const height = +svg.attr("height");
+// const svg = d3.select("svg");
+// const width = +svg.attr("width");
+// const height = +svg.attr("height");
+// const squareSize = 70;
+// const padding = 10;
+// const logoSize = 16;
+// const cols = Math.floor(width / squareSize); 
+// const borderColors = ["#ff0000", "#60e550"];
+// d3.csv("currencies.csv").then(data => {
+// const squares = [];
+
+    
+// data.forEach(d => {
+//     let attempts = 0;
+//     let x, y, overlaps;
+//     const value = +d.Rates;
+    
+//     do {
+//         x = Math.random() * (width - squareSize);
+//         y = Math.random() * (height - squareSize);
+        
+//         overlaps = squares.some(square => 
+//             x < square.x + squareSize && 
+//             x + squareSize > square.x && 
+//             y < square.y + squareSize && 
+//             y + squareSize > square.y
+//         );
+
+//         attempts++;
+//     } while (overlaps && attempts < 100); 
+
+
+//     if (attempts < 100) {
+//         squares.push({ x, y, name: d.Currency, value, image: d.image });
+//     }
+// });
+
+//     svg.selectAll(".square")
+//     .data(squares)
+//     .enter()
+//     .append("rect")
+//     .attr("class", "square")
+//     .attr("x", d => d.x)
+//     .attr("y", d => d.y)
+//     .attr("width", squareSize)
+//     .attr("height", squareSize)
+//     .attr("fill", (d, i) => d3.schemeCategory10[i % 10])
+//     .attr("stroke", (d, i) => borderColors[i % borderColors.length])
+//         .attr("stroke-width", 2);
+
+//     svg.selectAll(".square-text-name")
+//         .data(squares)
+//         .enter()
+//         .append("text")
+//         .attr("class", "square-text-name")
+//         .attr("x", d => d.x + squareSize / 2)
+//         .attr("y", d => d.y + squareSize  / 2)
+//         .text(d => d.name);
+
+//     svg.selectAll(".square-value")
+//         .data(squares)
+//         .enter()
+//         .append("text")
+//         .attr("class", "square-text")
+//         .attr("x", d => d.x + squareSize / 2)
+//         .attr("y", d => d.y + (3 * squareSize) / 4) 
+//         .text(d => d.value);
+//     svg.selectAll(".square-image")
+//         .data(squares)
+//         .enter()
+//         .append("image")
+//         .attr("class", "square-image")
+//         .attr("xlink:href", d => d.image)
+//         .attr("x", d => d.x + (squareSize - logoSize) / 2) 
+//         .attr("y", d => d.y + (squareSize - logoSize) / 8)
+//         .attr("width", logoSize)
+//         .attr("height", logoSize);
+// });
+
+const svg = d3.select("#chart")
+    .attr("width", "100%")  // Make SVG responsive width-wise
+    .attr("height", "100%") // Make SVG responsive height-wise
+    .attr("viewBox", `0 0 1500 540`)  // Set viewBox for responsiveness
+    .attr("preserveAspectRatio", "xMinYMin meet");  // Preserve aspect ratio
+
+const width = 1500; // Define fixed viewBox width
+const height = 540; // Define fixed viewBox height
 const squareSize = 70; // Base size for the squares
 const padding = 10; // Increase this value for more padding between squares
 const logoSize = 16; // Size of the logos
-const cols = Math.floor(width / squareSize); 
-const borderColors = ["#ff0000", "#60e550"];
-//const colorScale = d3.scaleOrdinal(d3.schemeCategory10); 
+
+// Define a gradient for the border
+const defs = svg.append("defs");
+
+const gradient = defs.append("linearGradient")
+    .attr("id", "borderGradient")
+    .attr("x1", "0%")
+    .attr("y1", "0%")
+    .attr("x2", "100%")
+    .attr("y2", "100%");
+
+// Define color stops for gradient
+gradient.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", "#f5a623");  // Start color
+
+gradient.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", "#f56b2a");  // End color
+
 // Create squares with random positions
 d3.csv("currencies.csv").then(data => {
-const squares = [];
+    const squares = [];
 
-    
-data.forEach(d => {
-    let attempts = 0;
-    let x, y, overlaps;
-    const value = +d.Rates;
-    
-    do {
-        x = Math.random() * (width - squareSize);
-        y = Math.random() * (height - squareSize);
-        
-        overlaps = squares.some(square => 
-            x < square.x + squareSize && 
-            x + squareSize > square.x && 
-            y < square.y + squareSize && 
-            y + squareSize > square.y
-        );
+    data.forEach(d => {
+        let attempts = 0;
+        let x, y, overlaps;
+        const value = +d.Rates;
 
-        attempts++;
-    } while (overlaps && attempts < 100); // Limit attempts
-    //const x = (index % cols) * squareSize; // Column-wise placement
-        //  const y = Math.floor(index / cols) * squareSize; // Row-wise placement
+        do {
+            x = Math.random() * (width - squareSize);
+            y = Math.random() * (height - squareSize);
 
+            overlaps = squares.some(square => 
+                x < square.x + squareSize && 
+                x + squareSize > square.x && 
+                y < square.y + squareSize && 
+                y + squareSize > square.y
+            );
 
-    if (attempts < 100) {
-        squares.push({ x, y, name: d.Currency, value, image: d.image });
-    }
-});
-// Create squares
+            attempts++;
+        } while (overlaps && attempts < 100); // Limit attempts
+
+        if (attempts < 100) {
+            squares.push({ x, y, name: d.Currency, value, image: d.image });
+        }
+    });
+
+    // Create squares
     svg.selectAll(".square")
-    .data(squares)
-    .enter()
-    .append("rect")
-    .attr("class", "square")
-    .attr("x", d => d.x) // Random x position
-    .attr("y", d => d.y) // Random y position
-    .attr("width", squareSize) // Set square width
-    .attr("height", squareSize) // Set square height
-    //.attr("fill", d => d.color);
-    .attr("fill", (d, i) => d3.schemeCategory10[i % 10])
-    //.attr("stroke", "#60e550") // Border color
-    .attr("stroke", (d, i) => borderColors[i % borderColors.length]) // Different border color
-        .attr("stroke-width", 2); // Border width
-    //.attr("fill", (d, i) => d3.schemeCategory10[i % 10]);
+        .data(squares)
+        .enter()
+        .append("rect")
+        .attr("class", "square")
+        .attr("x", d => d.x) // Random x position
+        .attr("y", d => d.y) // Random y position
+        .attr("width", squareSize) // Set square width
+        .attr("height", squareSize) // Set square height
+        .attr("fill", (d, i) => d3.schemeCategory10[i % 10])  // Apply fill color
+        .attr("stroke", "url(#borderGradient)")  // Apply gradient to border
+        .attr("stroke-width", 4);  // Border width
 
-    
     // Add text inside squares
     svg.selectAll(".square-text-name")
         .data(squares)
@@ -148,7 +242,7 @@ data.forEach(d => {
         .append("text")
         .attr("class", "square-text-name")
         .attr("x", d => d.x + squareSize / 2) // Center text horizontally
-        .attr("y", d => d.y + squareSize  / 2) // Position for name
+        .attr("y", d => d.y + squareSize / 2) // Position for name
         .text(d => d.name); // Display name
 
     svg.selectAll(".square-value")
@@ -159,6 +253,8 @@ data.forEach(d => {
         .attr("x", d => d.x + squareSize / 2) // Center text horizontally
         .attr("y", d => d.y + (3 * squareSize) / 4) // Position for value
         .text(d => d.value); // Display value
+
+    // Add images inside squares
     svg.selectAll(".square-image")
         .data(squares)
         .enter()

@@ -141,6 +141,7 @@ text {
 
 .square {
     opacity: 0.7;
+    fill: transparent;
 }
 
 .square-text {
@@ -150,7 +151,7 @@ text {
 }
 
 .square-text-name {
-    font-size: 16px; /* Font size for name */
+    font-size: 14px; /* Font size for name */
     font-family: 'Arial', sans-serif; /* Font style for name */
     text-anchor: middle; /* Center the text horizontally */
     fill: white; /* Text color for name */
