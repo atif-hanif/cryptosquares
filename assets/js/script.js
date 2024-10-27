@@ -269,17 +269,135 @@ $(document).ready(function() {
 
 /* Fourth JS */
 
+// const svg = d3.select("#chart")
+//     .attr("width", "100%") 
+//     .attr("height", "100%")
+//     .attr("viewBox", `0 0 1500 540`) 
+//     .attr("preserveAspectRatio", "xMinYMin meet"); 
+
+// const width = 1500;
+// const height = 540;
+// const squareSize = 70;
+// const logoSize = 16;
+
+// const defs = svg.append("defs");
+
+// const highGradient = defs.append("linearGradient")
+//     .attr("id", "highGradient")
+//     .attr("x1", "0%")
+//     .attr("y1", "0%")
+//     .attr("x2", "100%")
+//     .attr("y2", "100%");
+
+// highGradient.append("stop")
+//     .attr("offset", "0%")
+//     .attr("stop-color", "#ff0000"); 
+
+// highGradient.append("stop")
+//     .attr("offset", "100%")
+//     .attr("stop-color", "#ffdb4d");  
+
+// const lowGradient = defs.append("linearGradient")
+//     .attr("id", "lowGradient")
+//     .attr("x1", "0%")
+//     .attr("y1", "0%")
+//     .attr("x2", "100%")
+//     .attr("y2", "100%");
+
+// lowGradient.append("stop")
+//     .attr("offset", "0%")
+//     .attr("stop-color", "#60e550"); 
+
+// lowGradient.append("stop")
+//     .attr("offset", "100%")
+//     .attr("stop-color", "#00bcd4"); 
+
+
+// const valueThreshold = 5000; 
+
+// d3.csv("currencies.csv").then(data => {
+//     const squares = [];
+
+//     data.forEach(d => {
+//         let attempts = 0;
+//         let x, y, overlaps;
+//         const value = +d.Rates;
+
+//         do {
+//             x = Math.random() * (width - squareSize);
+//             y = Math.random() * (height - squareSize);
+
+//             overlaps = squares.some(square => 
+//                 x < square.x + squareSize && 
+//                 x + squareSize > square.x && 
+//                 y < square.y + squareSize && 
+//                 y + squareSize > square.y
+//             );
+
+//             attempts++;
+//         } while (overlaps && attempts < 100);
+
+//         if (attempts < 100) {
+//             squares.push({ x, y, name: d.Currency, value, image: d.image });
+//         }
+//     });
+
+//     svg.selectAll(".square")
+//         .data(squares)
+//         .enter()
+//         .append("rect")
+//         .attr("class", "square")
+//         .attr("x", d => d.x) 
+//         .attr("y", d => d.y)
+//         .attr("width", squareSize)
+//         .attr("height", squareSize)
+//         .attr("fill", (d, i) => d3.schemeCategory10[i % 10])
+//         .attr("stroke", d => d.value > valueThreshold ? "url(#highGradient)" : "url(#lowGradient)") 
+//         .attr("stroke-width", 4);  
+
+    
+//     svg.selectAll(".square-text-name")
+//         .data(squares)
+//         .enter()
+//         .append("text")
+//         .attr("class", "square-text-name")
+//         .attr("x", d => d.x + squareSize / 2)
+//         .attr("y", d => d.y + squareSize / 2)
+//         .text(d => d.name);
+
+//     svg.selectAll(".square-value")
+//         .data(squares)
+//         .enter()
+//         .append("text")
+//         .attr("class", "square-text")
+//         .attr("x", d => d.x + squareSize / 2)
+//         .attr("y", d => d.y + (3 * squareSize) / 4) 
+//         .text(d => d.value);
+
+//     svg.selectAll(".square-image")
+//         .data(squares)
+//         .enter()
+//         .append("image")
+//         .attr("class", "square-image")
+//         .attr("xlink:href", d => d.image)
+//         .attr("x", d => d.x + (squareSize - logoSize) / 2) 
+//         .attr("y", d => d.y + (squareSize - logoSize) / 8) 
+//         .attr("width", logoSize) 
+//         .attr("height", logoSize);
+// });
+
+/* Fifth JS */
+
 const svg = d3.select("#chart")
     .attr("width", "100%") 
     .attr("height", "100%")
-    .attr("viewBox", `0 0 1500 540`) 
-    .attr("preserveAspectRatio", "xMinYMin meet"); 
+    .attr("viewBox", `0 0 1500 540`)  
+    .attr("preserveAspectRatio", "xMinYMin meet");  
 
 const width = 1500;
 const height = 540;
-const squareSize = 70;
+const squareSize = 70; 
 const logoSize = 16;
-//const borderColors = ["#ff0000", "#60e550"];
 
 const defs = svg.append("defs");
 
@@ -292,11 +410,11 @@ const highGradient = defs.append("linearGradient")
 
 highGradient.append("stop")
     .attr("offset", "0%")
-    .attr("stop-color", "#ff0000"); 
+    .attr("stop-color", "#ff5e5e"); 
 
 highGradient.append("stop")
     .attr("offset", "100%")
-    .attr("stop-color", "#ffdb4d");  
+    .attr("stop-color", "#ffcc00"); 
 
 const lowGradient = defs.append("linearGradient")
     .attr("id", "lowGradient")
@@ -304,6 +422,7 @@ const lowGradient = defs.append("linearGradient")
     .attr("y1", "0%")
     .attr("x2", "100%")
     .attr("y2", "100%");
+
 
 lowGradient.append("stop")
     .attr("offset", "0%")
@@ -343,21 +462,47 @@ d3.csv("currencies.csv").then(data => {
         }
     });
 
+
     svg.selectAll(".square")
         .data(squares)
         .enter()
         .append("rect")
         .attr("class", "square")
-        .attr("x", d => d.x) 
-        .attr("y", d => d.y)
-        .attr("width", squareSize)
-        .attr("height", squareSize)
-        .attr("fill", (d, i) => d3.schemeCategory10[i % 10])
+        .attr("x", d => d.x + squareSize / 2)
+        .attr("y", d => d.y + squareSize / 2) 
+        .attr("width", 0)
+        .attr("height", 0) 
+        .attr("fill", (d, i) => d3.schemeCategory10[i % 10]) 
         .attr("stroke", d => d.value > valueThreshold ? "url(#highGradient)" : "url(#lowGradient)") 
-		//.attr("stroke", (d, i) => borderColors[i % borderColors.length]) 
-        .attr("stroke-width", 4);  
+        .attr("stroke-width", 4) 
+        .transition() 
+        .duration(1000)
+        .attr("x", d => d.x)
+        .attr("y", d => d.y) 
+        .attr("width", squareSize) 
+        .attr("height", squareSize) 
+        .ease(d3.easeElastic); 
 
-    
+    svg.selectAll(".square")
+        .transition()
+        .delay(1000)
+        .duration(2000)
+        .ease(d3.easeSin)
+        .attr("width", squareSize * 1.1) 
+        .attr("height", squareSize * 1.1) 
+        .attr("x", d => d.x - squareSize * 0.05) 
+        .attr("y", d => d.y - squareSize * 0.05) 
+        .transition()
+        .duration(2000)
+        .attr("width", squareSize) 
+        .attr("height", squareSize) 
+        .attr("x", d => d.x) 
+        .attr("y", d => d.y) 
+        .ease(d3.easeSin)
+        .on("end", function() {
+            d3.select(this).transition().call(d3.select(this).transition()); 
+        });
+
     svg.selectAll(".square-text-name")
         .data(squares)
         .enter()
@@ -373,17 +518,6 @@ d3.csv("currencies.csv").then(data => {
         .append("text")
         .attr("class", "square-text")
         .attr("x", d => d.x + squareSize / 2)
-        .attr("y", d => d.y + (3 * squareSize) / 4) 
+        .attr("y", d => d.y + (3 * squareSize) / 4)
         .text(d => d.value);
-
-    svg.selectAll(".square-image")
-        .data(squares)
-        .enter()
-        .append("image")
-        .attr("class", "square-image")
-        .attr("xlink:href", d => d.image)
-        .attr("x", d => d.x + (squareSize - logoSize) / 2) 
-        .attr("y", d => d.y + (squareSize - logoSize) / 8) 
-        .attr("width", logoSize) 
-        .attr("height", logoSize);
 });
