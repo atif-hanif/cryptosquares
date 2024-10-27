@@ -279,42 +279,42 @@ const width = 1500;
 const height = 540;
 const squareSize = 70;
 const logoSize = 16;
-const borderColors = ["#ff0000", "#60e550"];
+//const borderColors = ["#ff0000", "#60e550"];
 
-// const defs = svg.append("defs");
+const defs = svg.append("defs");
 
-// const highGradient = defs.append("linearGradient")
-//     .attr("id", "highGradient")
-//     .attr("x1", "0%")
-//     .attr("y1", "0%")
-//     .attr("x2", "100%")
-//     .attr("y2", "100%");
+const highGradient = defs.append("linearGradient")
+    .attr("id", "highGradient")
+    .attr("x1", "0%")
+    .attr("y1", "0%")
+    .attr("x2", "100%")
+    .attr("y2", "100%");
 
-// highGradient.append("stop")
-//     .attr("offset", "0%")
-//     .attr("stop-color", "#ff0000"); 
+highGradient.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", "#ff0000"); 
 
-// highGradient.append("stop")
-//     .attr("offset", "100%")
-//     .attr("stop-color", "#ffdb4d");  
+highGradient.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", "#ffdb4d");  
 
-// const lowGradient = defs.append("linearGradient")
-//     .attr("id", "lowGradient")
-//     .attr("x1", "0%")
-//     .attr("y1", "0%")
-//     .attr("x2", "100%")
-//     .attr("y2", "100%");
+const lowGradient = defs.append("linearGradient")
+    .attr("id", "lowGradient")
+    .attr("x1", "0%")
+    .attr("y1", "0%")
+    .attr("x2", "100%")
+    .attr("y2", "100%");
 
-// lowGradient.append("stop")
-//     .attr("offset", "0%")
-//     .attr("stop-color", "#60e550"); 
+lowGradient.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", "#60e550"); 
 
-// lowGradient.append("stop")
-//     .attr("offset", "100%")
-//     .attr("stop-color", "#00bcd4"); 
+lowGradient.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", "#00bcd4"); 
 
 
-const valueThreshold = 50; 
+const valueThreshold = 5000; 
 
 d3.csv("currencies.csv").then(data => {
     const squares = [];
@@ -353,8 +353,8 @@ d3.csv("currencies.csv").then(data => {
         .attr("width", squareSize)
         .attr("height", squareSize)
         .attr("fill", (d, i) => d3.schemeCategory10[i % 10])
-        //.attr("stroke", d => d.value > valueThreshold ? "url(#highGradient)" : "url(#lowGradient)") 
-		.attr("stroke", (d, i) => borderColors[i % borderColors.length]) 
+        .attr("stroke", d => d.value > valueThreshold ? "url(#highGradient)" : "url(#lowGradient)") 
+		//.attr("stroke", (d, i) => borderColors[i % borderColors.length]) 
         .attr("stroke-width", 4);  
 
     
