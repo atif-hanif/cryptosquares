@@ -16,6 +16,8 @@ $(document).ready(function() {
     });
 });
 
+/* First JS */
+
 // const width = 1000;
 // const height = 600;
 // const padding = 50;
@@ -82,6 +84,8 @@ $(document).ready(function() {
 // 	d3.selectAll("text").style("fill", "black");
 
 // });
+
+/* Second JS */
 
 // const svg = d3.select("svg");
 // const width = +svg.attr("width");
@@ -162,6 +166,109 @@ $(document).ready(function() {
 //         .attr("height", logoSize);
 // });
 
+/* Third JS */
+
+// const svg = d3.select("#chart")
+//     .attr("width", "100%") 
+//     .attr("height", "100%")
+//     .attr("viewBox", `0 0 1500 540`) 
+//     .attr("preserveAspectRatio", "xMinYMin meet"); 
+
+// const width = 1500;
+// const height = 540;
+// const squareSize = 70;
+// const padding = 10;
+// const logoSize = 16;
+
+// const defs = svg.append("defs");
+
+// const gradient = defs.append("linearGradient")
+//     .attr("id", "borderGradient")
+//     .attr("x1", "0%")
+//     .attr("y1", "0%")
+//     .attr("x2", "100%")
+//     .attr("y2", "100%");
+
+// gradient.append("stop")
+//     .attr("offset", "0%")
+//     .attr("stop-color", "#f5a623"); 
+
+// gradient.append("stop")
+//     .attr("offset", "100%")
+//     .attr("stop-color", "#f56b2a"); 
+
+// d3.csv("currencies.csv").then(data => {
+//     const squares = [];
+
+//     data.forEach(d => {
+//         let attempts = 0;
+//         let x, y, overlaps;
+//         const value = +d.Rates;
+
+//         do {
+//             x = Math.random() * (width - squareSize);
+//             y = Math.random() * (height - squareSize);
+
+//             overlaps = squares.some(square => 
+//                 x < square.x + squareSize && 
+//                 x + squareSize > square.x && 
+//                 y < square.y + squareSize && 
+//                 y + squareSize > square.y
+//             );
+
+//             attempts++;
+//         } while (overlaps && attempts < 100);
+
+//         if (attempts < 100) {
+//             squares.push({ x, y, name: d.Currency, value, image: d.image });
+//         }
+//     });
+
+//     svg.selectAll(".square")
+//         .data(squares)
+//         .enter()
+//         .append("rect")
+//         .attr("class", "square")
+//         .attr("x", d => d.x)
+//         .attr("y", d => d.y)
+//         .attr("width", squareSize)
+//         .attr("height", squareSize) 
+//         .attr("fill", (d, i) => d3.schemeCategory10[i % 10]) 
+//         .attr("stroke", "url(#borderGradient)") 
+//         .attr("stroke-width", 4); 
+
+//     svg.selectAll(".square-text-name")
+//         .data(squares)
+//         .enter()
+//         .append("text")
+//         .attr("class", "square-text-name")
+//         .attr("x", d => d.x + squareSize / 2)
+//         .attr("y", d => d.y + squareSize / 2)
+//         .text(d => d.name);
+
+//     svg.selectAll(".square-value")
+//         .data(squares)
+//         .enter()
+//         .append("text")
+//         .attr("class", "square-text")
+//         .attr("x", d => d.x + squareSize / 2)
+//         .attr("y", d => d.y + (3 * squareSize) / 4)
+//         .text(d => d.value); 
+
+//     svg.selectAll(".square-image")
+//         .data(squares)
+//         .enter()
+//         .append("image")
+//         .attr("class", "square-image")
+//         .attr("xlink:href", d => d.image)
+//         .attr("x", d => d.x + (squareSize - logoSize) / 2)
+//         .attr("y", d => d.y + (squareSize - logoSize) / 8)
+//         .attr("width", logoSize)
+//         .attr("height", logoSize);
+// });
+
+/* Fourth JS */
+
 const svg = d3.select("#chart")
     .attr("width", "100%")  // Make SVG responsive width-wise
     .attr("height", "100%") // Make SVG responsive height-wise
@@ -171,27 +278,45 @@ const svg = d3.select("#chart")
 const width = 1500; // Define fixed viewBox width
 const height = 540; // Define fixed viewBox height
 const squareSize = 70; // Base size for the squares
-const padding = 10; // Increase this value for more padding between squares
 const logoSize = 16; // Size of the logos
 
-// Define a gradient for the border
+// Define two gradients for high and low values
 const defs = svg.append("defs");
 
-const gradient = defs.append("linearGradient")
-    .attr("id", "borderGradient")
+const highGradient = defs.append("linearGradient")
+    .attr("id", "highGradient")
     .attr("x1", "0%")
     .attr("y1", "0%")
     .attr("x2", "100%")
     .attr("y2", "100%");
 
-// Define color stops for gradient
-gradient.append("stop")
+// Define color stops for high gradient
+highGradient.append("stop")
     .attr("offset", "0%")
-    .attr("stop-color", "#f5a623");  // Start color
+    .attr("stop-color", "#ff5e5e");  // Start color (red)
 
-gradient.append("stop")
+highGradient.append("stop")
     .attr("offset", "100%")
-    .attr("stop-color", "#f56b2a");  // End color
+    .attr("stop-color", "#ffcc00");  // End color (yellow)
+
+const lowGradient = defs.append("linearGradient")
+    .attr("id", "lowGradient")
+    .attr("x1", "0%")
+    .attr("y1", "0%")
+    .attr("x2", "100%")
+    .attr("y2", "100%");
+
+// Define color stops for low gradient
+lowGradient.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", "#60e550");  // Start color (green)
+
+lowGradient.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", "#00bcd4");  // End color (blue)
+
+// Define a threshold to determine high and low values
+const valueThreshold = 50;  // Adjust this threshold as needed
 
 // Create squares with random positions
 d3.csv("currencies.csv").then(data => {
@@ -221,7 +346,7 @@ d3.csv("currencies.csv").then(data => {
         }
     });
 
-    // Create squares
+    // Create squares with conditional gradient borders
     svg.selectAll(".square")
         .data(squares)
         .enter()
@@ -232,7 +357,7 @@ d3.csv("currencies.csv").then(data => {
         .attr("width", squareSize) // Set square width
         .attr("height", squareSize) // Set square height
         .attr("fill", (d, i) => d3.schemeCategory10[i % 10])  // Apply fill color
-        .attr("stroke", "url(#borderGradient)")  // Apply gradient to border
+        .attr("stroke", d => d.value > valueThreshold ? "url(#highGradient)" : "url(#lowGradient)")  // Apply gradient based on value
         .attr("stroke-width", 4);  // Border width
 
     // Add text inside squares
