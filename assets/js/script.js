@@ -483,7 +483,21 @@ d3.csv("currencies.csv").then(data => {
         .attr("height", squareSize) 
         .ease(d3.easeElastic); 
 
-	function moveSquares() {
+	const nameText = svg.selectAll(".square-text-name")
+        .data(squares)
+        .enter()
+        .append("text")
+        .attr("class", "square-text-name")
+        .attr("x", d => d.x + squareSize / 2)
+        .attr("y", d => d.y + squareSize / 2)
+        .attr("opacity", 0)
+        .text(d => d.name)
+        .transition()
+        .duration(1000)
+        .attr("opacity", 1)
+        .ease(d3.easeElastic);
+
+	function moveElements() {
 		svg.selectAll(".square")
 			.transition()
 			.duration(3000)
@@ -494,11 +508,18 @@ d3.csv("currencies.csv").then(data => {
 			})
 			.attr("y", function(d) {
 				d.y = (d.y + Math.random() * 100 - 50) % height;
-				if (d.y < 0) d.y += height; 
+				if (d.y < 0) d.y += height;
 				return d.y;
 			})
-			.on("end", moveSquares); 
-	}	
+			.on("end", moveElements);
+
+		svg.selectAll(".square-text-name")
+			.transition()
+			.duration(3000)
+			.attr("x", function(d) { return d.x + squareSize / 2; })
+			.attr("y", function(d) { return d.y + squareSize / 2; })
+			.on("end", moveElements);
+	}
 
 	setTimeout(moveSquares, 1200);
 
