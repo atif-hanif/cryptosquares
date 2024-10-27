@@ -483,6 +483,25 @@ d3.csv("currencies.csv").then(data => {
         .attr("height", squareSize) 
         .ease(d3.easeElastic); 
 
+	function moveSquares() {
+		svg.selectAll(".square")
+			.transition()
+			.duration(3000)
+			.attr("x", function(d) {
+				d.x = (d.x + Math.random() * 100 - 50) % width;
+				if (d.x < 0) d.x += width;
+				return d.x;
+			})
+			.attr("y", function(d) {
+				d.y = (d.y + Math.random() * 100 - 50) % height;
+				if (d.y < 0) d.y += height; 
+				return d.y;
+			})
+			.on("end", moveSquares); 
+	}	
+
+	setTimeout(moveSquares, 1200);
+
     svg.selectAll(".square")
         .transition()
         .delay(1000)
