@@ -270,55 +270,52 @@ $(document).ready(function() {
 /* Fourth JS */
 
 const svg = d3.select("#chart")
-    .attr("width", "100%")  // Make SVG responsive width-wise
-    .attr("height", "100%") // Make SVG responsive height-wise
-    .attr("viewBox", `0 0 1500 540`)  // Set viewBox for responsiveness
-    .attr("preserveAspectRatio", "xMinYMin meet");  // Preserve aspect ratio
+    .attr("width", "100%") 
+    .attr("height", "100%")
+    .attr("viewBox", `0 0 1500 540`) 
+    .attr("preserveAspectRatio", "xMinYMin meet"); 
 
-const width = 1500; // Define fixed viewBox width
-const height = 540; // Define fixed viewBox height
-const squareSize = 70; // Base size for the squares
-const logoSize = 16; // Size of the logos
+const width = 1500;
+const height = 540;
+const squareSize = 70;
+const logoSize = 16;
+const borderColors = ["#ff0000", "#60e550"];
 
-// Define two gradients for high and low values
-const defs = svg.append("defs");
+// const defs = svg.append("defs");
 
-const highGradient = defs.append("linearGradient")
-    .attr("id", "highGradient")
-    .attr("x1", "0%")
-    .attr("y1", "0%")
-    .attr("x2", "100%")
-    .attr("y2", "100%");
+// const highGradient = defs.append("linearGradient")
+//     .attr("id", "highGradient")
+//     .attr("x1", "0%")
+//     .attr("y1", "0%")
+//     .attr("x2", "100%")
+//     .attr("y2", "100%");
 
-// Define color stops for high gradient
-highGradient.append("stop")
-    .attr("offset", "0%")
-    .attr("stop-color", "#ff5e5e");  // Start color (red)
+// highGradient.append("stop")
+//     .attr("offset", "0%")
+//     .attr("stop-color", "#ff0000"); 
 
-highGradient.append("stop")
-    .attr("offset", "100%")
-    .attr("stop-color", "#ffcc00");  // End color (yellow)
+// highGradient.append("stop")
+//     .attr("offset", "100%")
+//     .attr("stop-color", "#ffdb4d");  
 
-const lowGradient = defs.append("linearGradient")
-    .attr("id", "lowGradient")
-    .attr("x1", "0%")
-    .attr("y1", "0%")
-    .attr("x2", "100%")
-    .attr("y2", "100%");
+// const lowGradient = defs.append("linearGradient")
+//     .attr("id", "lowGradient")
+//     .attr("x1", "0%")
+//     .attr("y1", "0%")
+//     .attr("x2", "100%")
+//     .attr("y2", "100%");
 
-// Define color stops for low gradient
-lowGradient.append("stop")
-    .attr("offset", "0%")
-    .attr("stop-color", "#60e550");  // Start color (green)
+// lowGradient.append("stop")
+//     .attr("offset", "0%")
+//     .attr("stop-color", "#60e550"); 
 
-lowGradient.append("stop")
-    .attr("offset", "100%")
-    .attr("stop-color", "#00bcd4");  // End color (blue)
+// lowGradient.append("stop")
+//     .attr("offset", "100%")
+//     .attr("stop-color", "#00bcd4"); 
 
-// Define a threshold to determine high and low values
-const valueThreshold = 50;  // Adjust this threshold as needed
 
-// Create squares with random positions
+const valueThreshold = 50; 
+
 d3.csv("currencies.csv").then(data => {
     const squares = [];
 
@@ -339,55 +336,54 @@ d3.csv("currencies.csv").then(data => {
             );
 
             attempts++;
-        } while (overlaps && attempts < 100); // Limit attempts
+        } while (overlaps && attempts < 100);
 
         if (attempts < 100) {
             squares.push({ x, y, name: d.Currency, value, image: d.image });
         }
     });
 
-    // Create squares with conditional gradient borders
     svg.selectAll(".square")
         .data(squares)
         .enter()
         .append("rect")
         .attr("class", "square")
-        .attr("x", d => d.x) // Random x position
-        .attr("y", d => d.y) // Random y position
-        .attr("width", squareSize) // Set square width
-        .attr("height", squareSize) // Set square height
-        .attr("fill", (d, i) => d3.schemeCategory10[i % 10])  // Apply fill color
-        .attr("stroke", d => d.value > valueThreshold ? "url(#highGradient)" : "url(#lowGradient)")  // Apply gradient based on value
-        .attr("stroke-width", 4);  // Border width
+        .attr("x", d => d.x) 
+        .attr("y", d => d.y)
+        .attr("width", squareSize)
+        .attr("height", squareSize)
+        .attr("fill", (d, i) => d3.schemeCategory10[i % 10])
+        //.attr("stroke", d => d.value > valueThreshold ? "url(#highGradient)" : "url(#lowGradient)") 
+		.attr("stroke", (d, i) => borderColors[i % borderColors.length]) 
+        .attr("stroke-width", 4);  
 
-    // Add text inside squares
+    
     svg.selectAll(".square-text-name")
         .data(squares)
         .enter()
         .append("text")
         .attr("class", "square-text-name")
-        .attr("x", d => d.x + squareSize / 2) // Center text horizontally
-        .attr("y", d => d.y + squareSize / 2) // Position for name
-        .text(d => d.name); // Display name
+        .attr("x", d => d.x + squareSize / 2)
+        .attr("y", d => d.y + squareSize / 2)
+        .text(d => d.name);
 
     svg.selectAll(".square-value")
         .data(squares)
         .enter()
         .append("text")
         .attr("class", "square-text")
-        .attr("x", d => d.x + squareSize / 2) // Center text horizontally
-        .attr("y", d => d.y + (3 * squareSize) / 4) // Position for value
-        .text(d => d.value); // Display value
+        .attr("x", d => d.x + squareSize / 2)
+        .attr("y", d => d.y + (3 * squareSize) / 4) 
+        .text(d => d.value);
 
-    // Add images inside squares
     svg.selectAll(".square-image")
         .data(squares)
         .enter()
         .append("image")
         .attr("class", "square-image")
-        .attr("xlink:href", d => d.image) // Set the image source
-        .attr("x", d => d.x + (squareSize - logoSize) / 2) // Center the image horizontally
-        .attr("y", d => d.y + (squareSize - logoSize) / 8) // Center the image vertically
-        .attr("width", logoSize) // Set smaller image width
-        .attr("height", logoSize); // Set smaller image height
+        .attr("xlink:href", d => d.image)
+        .attr("x", d => d.x + (squareSize - logoSize) / 2) 
+        .attr("y", d => d.y + (squareSize - logoSize) / 8) 
+        .attr("width", logoSize) 
+        .attr("height", logoSize);
 });
