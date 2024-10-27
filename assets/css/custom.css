@@ -138,3 +138,20 @@ text {
     margin-left: auto;
     margin-right: auto;
 }
+
+.square {
+    opacity: 0.7;
+}
+
+.square-text {
+    font-size: 12px;
+    text-anchor: middle; /* Center the text */
+    fill: white; /* Text color */
+}
+
+.square-text-name {
+    font-size: 16px; /* Font size for name */
+    font-family: 'Arial', sans-serif; /* Font style for name */
+    text-anchor: middle; /* Center the text horizontally */
+    fill: white; /* Text color for name */
+}
